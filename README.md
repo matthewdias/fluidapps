@@ -9,8 +9,9 @@ Installation:
 
 You will need a premium version of Fluid - http://fluidapp.com
 
-1. Open Application
-2. Go to Window -> Userscripts
-3. Add a new script with pattern *inbox.google.com*
-4. Copy in code from script.js
-5. Quit and Reopen Inbox
+1. Open Inbox.app
+2. Go to Inbox -> User Agent -> Chrome/Safari
+3. Go to Window -> Userscripts
+4. Add a new script with pattern *inbox.google.com*
+5. Copy in code from script.js
+6. Quit and Reopen Inbox
