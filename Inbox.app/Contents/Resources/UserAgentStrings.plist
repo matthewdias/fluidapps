@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>title</key>
+		<string>Default (Automatically Chosen)</string>
+		<key>value</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X %d_%d_%d) AppleWebKit/%@ (KHTML, like Gecko) %@ Version/%@ Safari/%@</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Safari 7 — Mac</string>
+		<key>value</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.77.4 (KHTML, like Gecko) Version/7.0.5 Safari/537.77.4</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>iOS Safari 7 — iPhone</string>
+		<key>value</key>
+		<string>Mozilla/5.0 (iPhone; CPU OS 706 like Mac OS X) AppleWebKit/537.51.1 (KHTML like Gecko) Version/7.0 Mobile/11B651 Safari/9537.53</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>iOS Safari 7 — iPad</string>
+		<key>value</key>
+		<string>Mozilla/5.0 (iPad; CPU OS 706 like Mac OS X) AppleWebKit/537.51.1 (KHTML like Gecko) Version/7.0 Mobile/11B651 Safari/9537.53</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Google Chrome 37 — Mac</string>
+		<key>value</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.58 Safari/537.36</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Firefox 31 — Mac</string>
+		<key>value</key>
+		<string>Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:31.0) Gecko/20100101 Firefox/31.0</string>
+	</dict>
+	<dict>
+		<key>title</key>
+		<string>Internet Explorer 11</string>
+		<key>value</key>
+		<string>Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko</string>
+	</dict>
+</array>
+</plist>

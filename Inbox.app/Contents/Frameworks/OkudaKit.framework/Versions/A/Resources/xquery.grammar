@@ -1,0 +1,252 @@
+@before {
+        self.statementTerminator = @";";
+        self.singleLineCommentMarker = nil;
+        self.multiLineCommentStartMarker = @"(:";
+        self.multiLineCommentEndMarker = @":)";
+		self.blockStartMarker = @"{";
+		self.blockEndMarker = @"}";
+        self.braces = @"( ) [ ] < > (: :)";
+
+        PKTokenizer *t = self.tokenizer;
+        [t.symbolState add:@"//"];
+        [t.symbolState add:@".."];
+        [t.symbolState add:@":="];
+        [t.symbolState add:@"!="];
+        [t.symbolState add:@"::"];
+        [t.symbolState add:@"<="];
+        [t.symbolState add:@"=>"];
+        [t.symbolState add:@"(:"];
+        [t.symbolState add:@":)"];
+
+        NSMutableCharacterSet *cs = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
+        [cs addCharactersInString:@"_"];
+        [t.delimitState addStartMarker:@"$" endMarker:@"" allowedCharacterSet:cs];
+        [t setTokenizerState:t.delimitState from:'$' to:'$'];
+
+        [t setTokenizerState:t.wordState from:'_' to:'_'];
+        [t.wordState setWordChars:YES from:'-' to:'-'];
+        [t.wordState setWordChars:YES from:'_' to:'_'];
+        [t.wordState setWordChars:YES from:'.' to:'.'];
+        [t.wordState setWordChars:NO from:'\\'' to:'\\''];
+
+        [t setTokenizerState:t.symbolState from:'-' to:'-'];
+
+        [t setTokenizerState:t.numberState from:'.' to:'.'];
+
+        [t setTokenizerState:t.numberState from:'#' to:'#'];
+        t.numberState.allowsScientificNotation = YES;
+
+        [t setTokenizerState:t.symbolState from:'/' to:'/'];
+
+        // setup comments
+        t.commentState.reportsCommentTokens = YES;
+        [t.commentState addMultiLineStartMarker:@"(:" endMarker:@":)"];
+        [t setTokenizerState:t.commentState from:'(' to:'('];
+        [t setTokenizerState:t.commentState from:':' to:':'];
+        [t.commentState setFallbackState:t.symbolState from:'(' to:'('];
+        [t.commentState setFallbackState:t.symbolState from:':' to:':'];
+}
+
+expr = token*;
+token = colon | assign | eq | ne | dot | lt | gt | separators | operators | star | braces | comment | variable | keyword | builtin | functionName | axisName | string | number | ncName;
+
+comment         = Comment;
+
+colon           = ':';
+assign          = ':=';
+eq              = '=';
+ne              = '!=';
+dot             = singleDot | doubleDot;
+singleDot       = '.';
+doubleDot       = '..';
+lt              = '<';
+gt              = '>';
+
+separators      = slash | doubleSlash | axisSep;
+    slash           = '/';
+    doubleSlash     = '//';
+    axisSep         = '::';
+
+operators = or | and | div | mod | pipe | comma | plus | minus | question | le | ge;
+    or = 'or';
+    and = 'and';
+    div = 'div';
+    mod = 'mod';
+    pipe = '|';
+    comma = ',';
+    plus = '+';
+    minus = '-';
+    question = '?';
+    le = '<=';
+    ge = '>=';
+
+star = '*';
+
+braces = openParen | closeParen | openSquare | closeSquare | openCurly | closeCurly | symbol;
+    openParen = '(';
+    closeParen = ')';
+    openSquare = '[';
+    closeSquare = ']';
+    openCurly = '{';
+    closeCurly = '}';
+    symbol = Symbol;
+    
+variable = %{'$', ''};
+
+keyword = function | declare | if | then | else | switch | case | default | for | at | in | let | to | where | order | by | ascending | descending | return | some | every | satisfies | intersect | union | except | valLt | valGt | valLe | valGe | valEq | valNe;
+    function = 'function';
+    declare = 'declare';
+    if = 'if';
+    then = 'then';
+    else = 'else';
+    switch = 'switch';
+    case = 'case';
+    default = 'default';
+    for = 'for';
+    at = 'at';
+    in = 'in';
+    let = 'let';
+    to = 'to';
+    where = 'where';
+    order = 'order';
+    by = 'by';
+    ascending = 'ascending';
+    descending = 'descending';
+    return = 'return';
+    some = 'some';
+    every = 'every';
+    satisfies = 'satisfies';
+    intersect = 'intersect';
+    union = 'union';
+    except = 'except';
+    valEq = 'eq';
+    valNe = 'ne';
+    valLt = 'lt';
+    valGt = 'gt';
+    valLe = 'le';
+    valGe = 'ge';
+
+builtin = commentSym | textSym | piSym | node | booleanLiteral;
+    commentSym  = 'comment';
+    textSym = 'text';
+    piSym = 'processing-instruction';
+    node = 'node';
+
+    booleanLiteral = true | false;
+        true = 'true';
+        false = 'false';
+        
+functionName
+    = absFn
+    | avgFn
+    | booleanFn
+    | ceilingFn
+    | compareFn
+    | concatFn
+    | containsFn
+    | countFn
+    | dataFn
+    | distinctValuesFn
+    | emptyFn
+    | endsWithFn
+    | existsFn
+    | floorFn
+    | headFn
+    | idFn
+    | indexOfFn
+    | insertBeforeFn
+    | langFn
+    | lastFn
+    | localNameFn
+    | lowerCaseFn
+    | matchesFn
+    | maxFn
+    | minFn
+    | nameFn
+    | namespaceUriFn
+    | normalizeSpaceFn
+    | normalizeUnicodeFn
+    | notFn
+    | numberFn
+    | positionFn
+    | removeFn
+    | replaceFn
+    | reverseFn
+    | roundFn
+    | startsWithFn
+    | stringFn
+    | stringJoinFn
+    | stringLengthFn
+    | subsequenceFn
+    | substringFn
+    | substringAfterFn
+    | substringBeforeFn
+    | sumFn
+    | tailFn
+    | traceFn
+    | translateFn
+    | trimSpaceFn
+    | titleCaseFn
+    | upperCaseFn
+    ;
+
+absFn = 'abs';
+avgFn = 'avg';
+booleanFn = 'boolean';
+ceilingFn = 'ceiling';
+compareFn = 'compare';
+concatFn = 'concat';
+containsFn = 'contains';
+countFn = 'count';
+dataFn = 'data';
+distinctValuesFn = 'distinct-values';
+emptyFn = 'empty';
+endsWithFn = 'ends-with';
+existsFn = 'exists';
+floorFn = 'floor';
+headFn = 'head';
+idFn = 'id';
+indexOfFn = 'index-of';
+insertBeforeFn = 'insert-before';
+langFn = 'lang';
+lastFn = 'last';
+localNameFn = 'local-name';
+lowerCaseFn = 'lower-case';
+matchesFn = 'matches';
+maxFn = 'max';
+minFn = 'min';
+nameFn = 'name';
+namespaceUriFn = 'namespace-uri';
+normalizeSpaceFn = 'normalize-space';
+normalizeUnicodeFn = 'normalize-unicode';
+notFn = 'not';
+numberFn = 'number';
+positionFn = 'position';
+removeFn = 'remove';
+replaceFn = 'replace';
+roundFn = 'round';
+reverseFn = 'reverse';
+startsWithFn = 'starts-with';
+stringFn = 'string';
+stringJoinFn = 'string-join';
+stringLengthFn = 'string-length';
+subsequenceFn = 'subsequence';
+substringFn = 'substring';
+substringAfterFn = 'substring-after';
+substringBeforeFn = 'substring-before';
+sumFn = 'sum';
+tailFn = 'tail';
+traceFn = 'trace';
+translateFn = 'translate';
+trimSpaceFn = 'trim-space';
+titleCaseFn = 'title-case';
+upperCaseFn = 'upper-case';
+
+axisName = atSym | 'ancestor' | 'ancestor-or-self' | 'attribute' | 'child' | 'descendant' | 'descendant-or-self' | 'following' | 'following-sibling' | 'namespace' | 'parent' | 'preceding' | 'preceding-sibling' | 'self';
+    atSym = '@';
+
+string = QuotedString;
+number = Number;
+
+ncName = Word;
+/*attrNCName = Word;*/

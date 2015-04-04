@@ -1,0 +1,79 @@
+/*
+    An HTML grammar for use with OkudaKit
+
+    this grammar is intentionally very forgiving (non-strict)
+    the point here is to highlight, not validate, HTML.
+*/
+
+@before {
+        self.statementTerminator = nil;
+        self.singleLineCommentMarker = nil;
+        self.multiLineCommentStartMarker = @"<!--";
+        self.multiLineCommentEndMarker = @"-->";
+		self.blockStartMarker = nil;
+		self.blockEndMarker = nil;
+        self.braces = @"< > <!-- --> <? ?> <![CDATA[ ]]>";
+
+        PKTokenizer *t = self.tokenizer;
+
+        // symbols
+        [t.symbolState add:@"<!--"];
+        [t.symbolState add:@"-->"];
+        [t.symbolState add:@"<?"];
+        [t.symbolState add:@"?>"];
+		[t.symbolState add:@"<![CDATA["];
+		[t.symbolState add:@"]]>"];
+		[t.symbolState add:@"<!DOCTYPE"];
+		[t.symbolState add:@"]>"];
+
+        // comments	
+        [t setTokenizerState:t.commentState from:'<' to:'<'];
+        [t.commentState addMultiLineStartMarker:@"<!--" endMarker:@"-->"];
+        [t.commentState setFallbackState:t.delimitState from:'<' to:'<'];
+        t.commentState.reportsCommentTokens = YES;
+
+        // pi
+        [t.delimitState addStartMarker:@"<?" endMarker:@"?>" allowedCharacterSet:nil];
+        
+        // doctype & cdata
+        [t.delimitState addStartMarker:@"<![CDATA[" endMarker:@"]]>" allowedCharacterSet:nil];
+        
+        [t.delimitState setFallbackState:t.symbolState from:'<' to:'<'];
+}
+
+document        = any+;
+any             = tag | dtd | cdata | pi | comment | text;
+
+pi              = %{'<?', '?>'};
+cdata           = %{'<![CDATA[', ']]>'};
+
+text            = { ![LS(1) hasPrefix:@"<"] }? Any; // /[^<]+/;
+
+tag		        = lt fwdSlash* tagName? (fwdSlash | attrNCName | string | num | tagSymbol)+ gt;
+
+dtd             = doctype dtdContent* doctypeClose;
+
+doctype         = '<!DOCTYPE';
+
+internalDTDStartTag = '[';
+
+doctypeClose    = internalDTDStartTag | gt;
+dtdContent      = { !EQ(LS(1), @"[") && !EQ(LS(1), @">") }? Any;
+
+tagName = elNCName (colon elNCName)?;
+elNCName = Word;
+
+string = QuotedString;
+attrNCName = Word;
+
+colon           = ':';
+eq              = '=';
+lt              = '<';
+gt              = '>';
+fwdSlash        = '/';
+
+tagSymbol		= eq | colon | symbol;
+symbol 			= Symbol;
+num				= Number;
+
+comment         = Comment;
