@@ -15,3 +15,4 @@ You will need a premium version of Fluid - http://fluidapp.com
 4. Add a new script with pattern *inbox.google.com*
 5. Copy in code from script.js
 6. Quit and Reopen Inbox
+7. Donate - https://cash.me/$matthewdias
