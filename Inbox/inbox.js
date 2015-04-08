@@ -4,7 +4,7 @@ setInterval(updateDockBadge, 500);
 
 function updateDockBadge() {
     
-    var els = document.getElementsByClassName('rx');
+    var els = document.getElementsByClassName('rw');
     
     if (els.length > count) {
         window.console.log('notifying');
