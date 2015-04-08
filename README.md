@@ -2,6 +2,7 @@
 Single site browsers for Inbox and Messenger with support for dock badges and notifications.
 
 Inbox icon by Fabrizio Rinaldi - https://dribbble.com/linuz90
+
 Messenger icon by Daniel Büchele - https://dribbble.com/danielbuechele
 
 ![](https://dl.dropbox.com/s/h3bba2zh571xoxk/Screenshot%202015-04-04%2003.29.33.png)
