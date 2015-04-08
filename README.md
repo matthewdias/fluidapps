@@ -14,7 +14,7 @@ You will need a premium version of Fluid - http://fluidapp.com
 1. Open Inbox.app or Messenger.app
 2. Go to Inbox -> User Agent -> Chrome/Safari
 3. Go to Window -> Userscripts
-4. Add a new script with pattern *inbox.google.com* or *messenger.com*
+4. Add a new script with pattern \*inbox.google.com\* or \*messenger.com\*
 5. Copy in code from inbox.js or messenger.js
 6. Quit and Reopen app
 7. Profit! (https://cash.me/$matthewdias)
