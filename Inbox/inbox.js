@@ -4,13 +4,13 @@ setInterval(updateDockBadge, 500);
 
 function updateDockBadge() {
     
-    var els = document.getElementsByClassName('rw');
+    var els = document.getElementsByClassName('rx');
     
     if (els.length > count) {
         window.console.log('notifying');
         for(i = 0; i < els.length - count; i++) {
             var notifEl = els[i];
-            var newemails = document.getElementsByClassName('a8 pJ');
+            var newemails = document.getElementsByClassName('a7 pH');
             var emailRow = newemails[i];
             var title = notifEl.innerText;
             var text = emailRow.innerText;
