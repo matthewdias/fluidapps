@@ -1,6 +1,8 @@
 # Fluid Apps
 Single site browsers for Inbox and Messenger with support for dock badges and notifications.
 
+Note: Facebook and Google change their class IDs frequently, so if notifications aren't working, submit an issue and I'll update the scripts.
+
 Inbox icon by Fabrizio Rinaldi - https://dribbble.com/linuz90
 
 Messenger icon by Daniel Büchele - https://dribbble.com/danielbuechele
