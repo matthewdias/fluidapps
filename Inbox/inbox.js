@@ -5,7 +5,7 @@ setInterval(updateDockBadge, 500);
 function updateDockBadge() {
     
     var els = document.getElementsByClassName('ss');
-    var hgts = document.getElementsByClassName('qb')[0].innerText;
+    var hgts = document.getElementsByClassName('be lR');
     
     if (els.length > count) {
         window.console.log('notifying');
@@ -19,7 +19,11 @@ function updateDockBadge() {
         }
     }
     
-    count = els.length + eval(hgts);
+    var hgtsct;
+    if(hgts.length == 0)
+        hgtsct = 0;
+    else hgtsct = hgts.length - 1;
+    count = els.length + hgtsct;
     
     if(count > 0) {
         window.fluid.dockBadge = count;
@@ -27,5 +31,5 @@ function updateDockBadge() {
     else {
         window.fluid.dockBadge = '';
     }
-    console.log('hgts ' + hgts.length);
+    console.log('count ' + count);
 }
