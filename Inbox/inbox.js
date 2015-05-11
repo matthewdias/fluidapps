@@ -5,6 +5,7 @@ setInterval(updateDockBadge, 500);
 function updateDockBadge() {
     
     var els = document.getElementsByClassName('ss');
+    var hgts = document.getElementsByClassName('qb')[0].innerText;
     
     if (els.length > count) {
         window.console.log('notifying');
@@ -18,7 +19,7 @@ function updateDockBadge() {
         }
     }
     
-    count = els.length;
+    count = els.length + eval(hgts);
     
     if(count > 0) {
         window.fluid.dockBadge = count;
@@ -26,5 +27,5 @@ function updateDockBadge() {
     else {
         window.fluid.dockBadge = '';
     }
-    console.log('count ' + count);
+    console.log('hgts ' + hgts.length);
 }
